@@ -12,6 +12,12 @@ public class WaveConfigSO : ScriptableObject
     [SerializeField] Transform pathPrefab;
     // Kecepatan gerak musuh
     [SerializeField] float moveSpeed = 5f;
+    // Waktu antara pemunculan musuh
+    [SerializeField] float timeBetweenEnemySpawns = 1f;
+    // Variansi waktu pemunculan musuh
+    [SerializeField] float spwanTimeVariance = 0.5f;
+    // Waktu minimum antara pemunculan musuh
+    [SerializeField] float minimumSpawnTime = 0.2f;
 
     // Mengembalikan jumlah musuh dalam gelombang ini
     public int GetEnemyCount() {
@@ -42,5 +48,13 @@ public class WaveConfigSO : ScriptableObject
     // Mengembalikan kecepatan gerak musuh
     public float GetMoveSpeed() {
         return moveSpeed;
+    }
+
+    // Menghitung waktu acak untuk pemunculan musuh, mempertimbangkan variansi dan batas minimum
+    public float GetRandomSpawnTime() {
+        // Menghasilkan waktu spawn acak dengan mempertimbangkan variansi
+        float spawnTime = Random.Range(timeBetweenEnemySpawns - spwanTimeVariance, timeBetweenEnemySpawns + spwanTimeVariance);
+        // Mengembalikan waktu spawn yang dibatasi oleh minimum spawn time
+        return Mathf.Clamp(spawnTime, minimumSpawnTime, float.MaxValue);
     }
 }
