@@ -1,0 +1,4 @@
+repository "Endless Shooter@unity_716C02C37FB43FDEA319@cloud"
+  path "/"
+    br "/main"
+    co "/main"
