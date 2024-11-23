@@ -4,7 +4,7 @@
 
 ---
 
-## 🎮 Cara Bermain
+** 🎮 Cara Bermain**
 
 1. **Gerakkan Karakter**  
    Gunakan tombol `W/A/S/D` atau tombol panah untuk menggerakkan karakter.
