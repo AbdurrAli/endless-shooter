@@ -2,7 +2,6 @@
 
 **Endless Shooter** adalah game arcade aksi tanpa akhir di mana kamu harus bertahan hidup dari gelombang musuh yang terus menyerang. Uji kecepatan, ketepatan, dan strategi kamu untuk meraih skor tertinggi!
 
----
 
 ** 🎮 Cara Bermain**
 
@@ -15,6 +14,5 @@
 3. **Hindari Serangan**  
    Jangan biarkan musuh menyentuhmu—bertahan selama mungkin!
 
----
 
 Selamat bermain dan raih skor tertinggi! 🚀
