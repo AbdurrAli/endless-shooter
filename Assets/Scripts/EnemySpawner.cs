@@ -10,6 +10,10 @@ public class EnemySpawner : MonoBehaviour
     // Waktu tunggu antara setiap gelombang musuh
     [SerializeField] float timeBetweenWaves = 2f;
     // Gelombang saat ini yang akan digunakan untuk menentukan pengaturan musuh
+
+    [SerializeField] bool isLooping;
+
+
     WaveConfigSO currentWaves;
 
     // Fungsi Start dipanggil sekali saat objek diinisialisasi
@@ -26,26 +30,33 @@ public class EnemySpawner : MonoBehaviour
 
     // Fungsi untuk memunculkan musuh berdasarkan konfigurasi gelombang
     IEnumerator SpawnEnemyWaves() {
-        // Melakukan iterasi pada setiap gelombang yang ada dalam waveConfigs
-        foreach (WaveConfigSO wave in waveConfigs) {
-            currentWaves = wave; // Mengatur gelombang saat ini
-            
-            // Memunculkan musuh berdasarkan jumlah yang ditentukan dalam gelombang saat ini
-            for (int i = 0; i < currentWaves.GetEnemyCount(); i++) {
-                // Membuat instance musuh pada posisi awal yang ditentukan, tanpa rotasi (Quaternion.identity), dan menetapkan spawner sebagai parent
-                Instantiate(
-                    currentWaves.GetEnemyPrefabs(i), // Prefab musuh yang akan dibuat
-                    currentWaves.GetStartingWaypoint().position, // Posisi awal musuh
-                    Quaternion.identity, // Rotasi musuh (identity berarti tidak ada rotasi)
-                    transform // Menetapkan spawner sebagai parent dari musuh yang dibuat
-                );
-                
-                // Menunggu waktu spawn yang ditentukan sebelum memunculkan musuh berikutnya
-                yield return new WaitForSeconds(currentWaves.GetRandomSpawnTime());
+
+        do
+        {
+            // Melakukan iterasi pada setiap gelombang yang ada dalam waveConfigs
+            foreach (WaveConfigSO wave in waveConfigs)
+            {
+                currentWaves = wave; // Mengatur gelombang saat ini
+
+                // Memunculkan musuh berdasarkan jumlah yang ditentukan dalam gelombang saat ini
+                for (int i = 0; i < currentWaves.GetEnemyCount(); i++)
+                {
+                    // Membuat instance musuh pada posisi awal yang ditentukan, tanpa rotasi (Quaternion.identity), dan menetapkan spawner sebagai parent
+                    Instantiate(
+                        currentWaves.GetEnemyPrefabs(i), // Prefab musuh yang akan dibuat
+                        currentWaves.GetStartingWaypoint().position, // Posisi awal musuh
+                        Quaternion.Euler(0,0,180), // Rotasi musuh (identity berarti tidak ada rotasi)
+                        transform // Menetapkan spawner sebagai parent dari musuh yang dibuat
+                    );
+
+                    // Menunggu waktu spawn yang ditentukan sebelum memunculkan musuh berikutnya
+                    yield return new WaitForSeconds(currentWaves.GetRandomSpawnTime());
+                }
+                // Menunggu waktu antara gelombang sebelum memunculkan gelombang berikutnya
+                yield return new WaitForSeconds(timeBetweenWaves);
             }
-            // Menunggu waktu antara gelombang sebelum memunculkan gelombang berikutnya
-            yield return new WaitForSeconds(timeBetweenWaves);
         }
+        while(isLooping);
     }
 
     // Update dipanggil sekali per frame

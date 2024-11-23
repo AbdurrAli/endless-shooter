@@ -21,6 +21,12 @@ public class Player : MonoBehaviour
     UnityEngine.Vector2 minBounds;
     UnityEngine.Vector2 maxBounds;
 
+    Shooter shooter;
+
+    void Awake() {
+        shooter = GetComponent<Shooter>();
+    }
+
     // Fungsi yang dipanggil saat game dimulai
     void Start() {
         InitBounds(); // Inisialisasi batas layar
@@ -56,6 +62,11 @@ public class Player : MonoBehaviour
     // Mengambil input pergerakan dari sistem Input
     void OnMove(InputValue value) {
         rawInput = value.Get<UnityEngine.Vector2>();
-        Debug.Log(rawInput); // Menampilkan nilai input pergerakan di console
+    }
+
+    void OnFire(InputValue value) {
+        if(shooter != null) {
+            shooter.isFiring = value.isPressed;
+        }
     }
 }
